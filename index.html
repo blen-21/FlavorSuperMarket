@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavor · Supermarket & Cafe</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Poppins + Playfair Display (for fancy logo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <!-- Favicon (Store emoji) -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏪</text></svg>">
+
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #fcf9f6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ---- NAVBAR ---- */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+            padding: 10px 0;
+            transition: 0.3s;
+        }
+
+        /* Fancy brand font */
+        .navbar-custom .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 2rem;
+            color: #2c3e2f;
+        }
+
+        .navbar-custom .navbar-brand i {
+            color: #6b8c42;
+            margin-right: 8px;
+            font-style: normal;
+        }
+
+        .navbar-custom .nav-link {
+            font-weight: 500;
+            color: #3d4f3f !important;
+            margin: 0 10px;
+            transition: 0.2s;
+            position: relative;
+            font-size: 0.92rem;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #6b8c42 !important;
+        }
+
+        .navbar-custom .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffe28a;
+            transition: 0.3s;
+        }
+
+        .navbar-custom .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-custom .nav-icons i {
+            font-size: 1.2rem;
+            color: #3d4f3f;
+            margin-left: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .navbar-custom .nav-icons i:hover {
+            color: #6b8c42;
+            transform: translateY(-2px);
+        }
+
+        /* Language Dropdown - now regular links */
+        .lang-dropdown .dropdown-toggle {
+            background: transparent;
+            border: none;
+            color: #3d4f3f;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            transition: 0.2s;
+        }
+
+        .lang-dropdown .dropdown-toggle:hover {
+            background: rgba(107, 140, 66, 0.08);
+            color: #6b8c42;
+        }
+
+        .lang-dropdown .dropdown-menu {
+            min-width: 120px;
+            border-radius: 16px;
+            border: 1px solid rgba(107, 140, 66, 0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+        }
+
+        .lang-dropdown .dropdown-item {
+            font-weight: 500;
+            color: #3d4f3f;
+            padding: 0.4rem 1.2rem;
+            transition: 0.2s;
+        }
+
+        .lang-dropdown .dropdown-item:hover {
+            background: #f0f7ea;
+            color: #6b8c42;
+        }
+
+        .lang-dropdown .dropdown-item.active {
+            background: #f0f7ea;
+            color: #6b8c42;
+        }
+
+        /* ---- DROPDOWN (Products) ---- */
+        @media (min-width: 992px) {
+            .navbar-custom .dropdown:hover .dropdown-menu {
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                margin-top: 0;
+                border-top: 3px solid #ffe28a;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+            }
+            .navbar-custom .dropdown .dropdown-menu {
+                display: block;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(12px);
+                transition: all 0.25s ease;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 226, 138, 0.3);
+                padding: 0.8rem 0;
+                min-width: 240px;
+            }
+            .navbar-custom .dropdown .dropdown-item {
+                padding: 0.6rem 1.8rem;
+                font-weight: 500;
+                color: #1e3a28;
+                transition: 0.2s;
+            }
+            .navbar-custom .dropdown .dropdown-item:hover {
+                background: #f5f9f0;
+                color: #6b8c42;
+                padding-left: 2.2rem;
+            }
+            .navbar-custom .dropdown .dropdown-item i {
+                width: 20px;
+                color: #6b8c42;
+                margin-right: 12px;
+            }
+            .navbar-custom .dropdown-divider {
+                border-color: rgba(107, 140, 66, 0.1);
+                margin: 0.4rem 0;
+            }
+        }
+
+        /* ---- HERO ---- */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: url('/images/img1.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            margin-top: 72px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(3px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-weight: 800;
+            font-size: 4.5rem;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-content h1 span {
+            color: #ffe28a;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            opacity: 0.92;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-yellow {
+            background: #ffe28a;
+            color: #1e3a28;
+            font-weight: 700;
+            padding: 14px 48px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 30px rgba(255, 226, 138, 0.3);
+            transition: 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-yellow:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(255, 226, 138, 0.4);
+            background: #ffd966;
+            color: #1e3a28;
+        }
+
+        .btn-outline-light-custom {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            transition: 0.3s;
+            text-decoration: none;
+            backdrop-filter: blur(4px);
+            display: inline-block;
+        }
+
+        .btn-outline-light-custom:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+            color: #fff;
+            transform: translateY(-4px);
+        }
+
+        .location-banner {
+            background: #ffe28a;
+            color: #1e3a28;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 20px rgba(255, 226, 138, 0.2);
+            font-size: 0.95rem;
+        }
+
+        .location-banner i {
+            font-size: 1.2rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-badges .badge-item {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            padding: 10px 24px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-weight: 400;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-badges .badge-item i {
+            color: #ffe28a;
+            font-size: 1.2rem;
+        }
+
+        /* ---- SECTION TITLES ---- */
+        .section-title {
+            font-weight: 700;
+            font-size: 2.6rem;
+            color: #1e3a28;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 5px;
+            background: #ffe28a;
+            border-radius: 10px;
+        }
+
+        .section-title.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .text-green {
+            color: #6b8c42;
+        }
+
+        /* ---- ABOUT SECTION CAROUSEL ---- */
+        .about-image-wrapper {
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+            height: 100%;
+            min-height: 320px;
+        }
+
+        .about-image-wrapper .carousel {
+            height: 100%;
+        }
+
+        .about-image-wrapper .carousel-inner,
+        .about-image-wrapper .carousel-item {
+            height: 100%;
+        }
+
+        .about-image-wrapper .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image-wrapper .carousel-control-prev,
+        .about-image-wrapper .carousel-control-next {
+            width: 10%;
+            opacity: 0.5;
+        }
+
+        .about-image-wrapper .carousel-control-prev:hover,
+        .about-image-wrapper .carousel-control-next:hover {
+            opacity: 0.9;
+        }
+
+        .about-image-wrapper .carousel-indicators {
+            bottom: 10px;
+        }
+
+        .about-image-wrapper .carousel-indicators button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            border: none;
+            margin: 0 4px;
+        }
+
+        .about-image-wrapper .carousel-indicators .active {
+            background-color: #ffe28a;
+        }
+
+        /* ---- CATEGORY PILLS ---- */
+        .category-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 10px 0 20px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-wrap: nowrap;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            flex: 0 0 auto;
+            background: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #2c3e2f;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(107, 140, 66, 0.15);
+            transition: 0.25s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-pill i {
+            color: #6b8c42;
+            font-size: 1.2rem;
+        }
+
+        .category-pill:hover {
+            background: #6b8c42;
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(107, 140, 66, 0.2);
+            border-color: #6b8c42;
+        }
+
+        .category-pill:hover i {
+            color: white;
+        }
+
+        .category-pill.active {
+            background: #6b8c42;
+            color: white;
+            border-color: #6b8c42;
+        }
+        .category-pill.active i {
+            color: white;
+        }
+
+        /* ---- PRODUCT CARDS ---- */
+        .product-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 1.2rem 1.2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            transition: 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 24px 50px rgba(107, 140, 66, 0.08);
+            border-color: rgba(107, 140, 66, 0.1);
+        }
+
+        .product-card .product-emoji {
+            font-size: 3.8rem;
+            background: #f5f9f0;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border-radius: 60px;
+            margin: 0 auto 1rem;
+            transition: 0.3s;
+        }
+
+        .product-card:hover .product-emoji {
+            transform: scale(1.05) rotate(-2deg);
+            background: #eaf3e0;
+        }
+
+        .product-card .product-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e3a28;
+        }
+
+        .product-card .product-desc {
+            font-size: 0.85rem;
+            color: #6b7a6d;
+            margin-bottom: 4px;
+        }
+
+        .product-card .product-price {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #6b8c42;
+            margin-top: 6px;
+        }
+
+        .product-card .product-price small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #8a9c8d;
+        }
+
+        .product-card .badge-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: #ffe28a;
+            color: #1e3a28;
+            font-weight: 600;
+            font-size: 0.7rem;
+            padding: 4px 14px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        .product-card .badge-tag.green {
+            background: #d4e8c0;
+            color: #2c4a2c;
+        }
+
+        .product-card .category-tag {
+            display: none;
+        }
+
+        /* ---- CAFE CORNER ---- */
+        .cafe-corner {
+            background: #fcf9f2;
+            border-radius: 48px;
+            padding: 3rem 2.5rem;
+            background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cafe-corner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(252, 249, 242, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 48px;
+            z-index: -1;
+        }
+
+        .cafe-corner .cafe-text h2 {
+            font-weight: 700;
+            color: #1e3a28;
+        }
+
+        .cafe-corner .cafe-text h2 i {
+            color: #6b8c42;
+        }
+
+        .cafe-corner .cafe-text p {
+            color: #3d4f3f;
+        }
+
+        .cafe-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            padding: 12px 24px 12px 16px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: 0.2s;
+            cursor: default;
+        }
+
+        .cafe-item:hover {
+            background: white;
+            transform: translateX(6px);
+        }
+
+        .cafe-item .cafe-emoji {
+            font-size: 1.8rem;
+        }
+        .cafe-item .cafe-name {
+            font-weight: 600;
+            color: #1e3a28;
+        }
+        .cafe-item .cafe-price {
+            font-weight: 700;
+            color: #6b8c42;
+            margin-left: auto;
+        }
+
+        /* ---- FULL MENU ---- */
+        .full-menu-items {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed rgba(107, 140, 66, 0.2);
+        }
+
+        .full-menu-items.show {
+            display: block;
+        }
+
+        /* ---- MAP ---- */
+        .map-wrapper {
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            height: 400px;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ---- CONTACT FORM (replaces newsletter) ---- */
+        .contact-form .form-control {
+            border-radius: 60px;
+            border: 1px solid rgba(107, 140, 66, 0.15);
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .contact-form .form-control:focus {
+            border-color: #6b8c42;
+            box-shadow: 0 0 0 3px rgba(107, 140, 66, 0.1);
+        }
+
+        .contact-form textarea.form-control {
+            border-radius: 24px;
+            min-height: 80px;
+        }
+
+        .btn-send {
+            background: #6b8c42;
+            border: none;
+            padding: 10px 32px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 600;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .btn-send:hover {
+            background: #4f6d32;
+            transform: translateY(-2px);
+        }
+
+        /* ---- FOOTER ---- */
+        .footer-custom {
+            background: #eef5e9;
+            border-top: 1px solid rgba(107, 140, 66, 0.1);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-custom h5 {
+            color: #1e3a28;
+            font-weight: 700;
+        }
+
+        .footer-custom a {
+            text-decoration: none;
+            color: #3d4f3f;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .footer-custom a:hover {
+            color: #6b8c42;
+            transform: translateX(4px);
+        }
+
+        .footer-custom .social-icon {
+            font-size: 1.4rem;
+            color: #3d4f3f;
+            margin-right: 16px;
+            transition: 0.2s;
+        }
+
+        .footer-custom .social-icon:hover {
+            color: #6b8c42;
+            transform: translateY(-4px) !important;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-content h1 span {
+                padding: 0 6px;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .hero-badges .badge-item {
+                font-size: 0.8rem;
+                padding: 6px 16px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .cafe-corner {
+                padding: 2rem 1.5rem;
+            }
+            .navbar-custom .navbar-brand {
+                font-size: 1.6rem;
+            }
+            .btn-yellow {
+                padding: 12px 32px;
+                font-size: 1rem;
+            }
+            .btn-outline-light-custom {
+                padding: 12px 28px;
+            }
+            .location-banner {
+                font-size: 0.85rem;
+                padding: 0.6rem 1.2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .map-wrapper {
+                height: 280px;
+            }
+            .lang-dropdown .dropdown-toggle {
+                font-size: 0.9rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .about-image-wrapper {
+                min-height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-badges {
+                gap: 0.8rem;
+            }
+            .hero-badges .badge-item {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .product-card .product-emoji {
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-store"></i> Flavor
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#supermarket">Supermarket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cafe">Café</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products & Services
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" data-filter="produce"><i class="fas fa-apple-alt"></i> Fresh Produce</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="bakery"><i class="fas fa-bread-slice"></i> Bakery & Bread</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="dairy"><i class="fas fa-cheese"></i> Dairy & Eggs</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="beverages"><i class="fas fa-wine-bottle"></i> Beverages</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="snacks"><i class="fas fa-candy-cane"></i> Snacks & Candy</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="organic"><i class="fas fa-seedling"></i> Organic & Natural</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="meat"><i class="fas fa-fish"></i> Meat & Seafood</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="deli"><i class="fas fa-utensils"></i> Ready Meals & Deli</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-filter="household"><i class="fas fa-broom"></i> Household Essentials</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="all"><i class="fas fa-th-large"></i> All Products</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <div class="nav-icons d-flex align-items-center">
+                    <!-- Language Dropdown (redirects to separate pages) -->
+                    <div class="dropdown lang-dropdown me-2">
+                        <button class="dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe"></i> EN
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                            <li><a class="dropdown-item active" href="index.html">English</a></li>
+                            <li><a class="dropdown-item" href="amharic.html">አማርኛ (Amharic)</a></li>
+                        </ul>
+                    </div>
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1>Fresh & <span>Delicious</span> <br>Every Day</h1>
+            <p>Your neighborhood supermarket and café — quality groceries, artisanal drinks, and warm hospitality.</p>
+
+            <div class="location-banner">
+                <i class="fas fa-map-pin"></i> Around Giorgis, in front of Melat Cafe
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                <a href="#supermarket" class="btn-yellow"><i class="fas fa-store me-2"></i>Explore Market</a>
+                <a href="#cafe" class="btn-outline-light-custom"><i class="fas fa-mug-hot me-2"></i>Visit Cafe</a>
+            </div>
+            <div class="hero-badges">
+                <span class="badge-item"><i class="fas fa-leaf"></i> 100% Organic</span>
+                <span class="badge-item"><i class="fas fa-coffee"></i> Freshly Brewed</span>
+                <span class="badge-item"><i class="fas fa-store"></i> Local Since 2024</span>
+                <span class="badge-item"><i class="fas fa-utensils"></i> Dine In or Takeout</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT US (with 5-image carousel) ========== -->
+    <section class="about-section" id="about" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-image-wrapper">
+                        <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2074&auto=format&fit=crop" class="d-block w-100" alt="Supermarket aisle">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=2070&auto=format&fit=crop" class="d-block w-100" alt="Cafe interior">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/images/img2.jpg" class="d-block w-100" alt="Fresh produce">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="images/img3.jpg" class="d-block w-100" alt="Bakery goods">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="images/img4.jpg" class="d-block w-100" alt="Coffee brewing">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 about-text">
+                    <h2 class="section-title">About <span class="text-green">Flavor</span></h2>
+                    <h3>Where Quality Meets Community</h3>
+                    <p>Flavor Supermarket & Cafe was born from a simple belief: that everyone deserves access to fresh, high-quality food in a warm and welcoming environment. We're more than just a grocery store — we're a gathering place for our community.</p>
+                    <p>Our shelves are stocked with carefully curated produce, artisanal baked goods, and everyday essentials. Our café serves handcrafted beverages and pastries made with love. Every product we offer is chosen with your family's health and happiness in mind.</p>
+
+                    <div class="row mt-4 g-3">
+                        <div class="col-sm-6">
+                            <div class="value-item" style="display: flex; align-items: flex-start; gap: 16px; padding: 12px 0;">
+                                <div class="value-icon" style="width: 48px; height: 48px; background: #f0f7ea; border-radius: 60px; display: flex; align-items: center; justify-content: center; color: #6b8c42; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-leaf"></i></div>
+                                <div class="value-text"><h6 style="font-weight: 700; color: #1e3a28; margin-bottom: 2px;">Farm Fresh</h6><p style="font-size: 0.9rem; color: #6b7a6d; margin: 0;">Sourced directly from local farms</p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="value-item" style="display: flex; align-items: flex-start; gap: 16px; padding: 12px 0;">
+                                <div class="value-icon" style="width: 48px; height: 48px; background: #f0f7ea; border-radius: 60px; display: flex; align-items: center; justify-content: center; color: #6b8c42; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-heart"></i></div>
+                                <div class="value-text"><h6 style="font-weight: 700; color: #1e3a28; margin-bottom: 2px;">Community First</h6><p style="font-size: 0.9rem; color: #6b7a6d; margin: 0;">Built for and by our neighbors</p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="value-item" style="display: flex; align-items: flex-start; gap: 16px; padding: 12px 0;">
+                                <div class="value-icon" style="width: 48px; height: 48px; background: #f0f7ea; border-radius: 60px; display: flex; align-items: center; justify-content: center; color: #6b8c42; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-star"></i></div>
+                                <div class="value-text"><h6 style="font-weight: 700; color: #1e3a28; margin-bottom: 2px;">Quality Guarantee</h6><p style="font-size: 0.9rem; color: #6b7a6d; margin: 0;">We stand behind every product</p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="value-item" style="display: flex; align-items: flex-start; gap: 16px; padding: 12px 0;">
+                                <div class="value-icon" style="width: 48px; height: 48px; background: #f0f7ea; border-radius: 60px; display: flex; align-items: center; justify-content: center; color: #6b8c42; font-size: 1.2rem; flex-shrink: 0;"><i class="fas fa-handshake"></i></div>
+                                <div class="value-text"><h6 style="font-weight: 700; color: #1e3a28; margin-bottom: 2px;">Friendly Service</h6><p style="font-size: 0.9rem; color: #6b7a6d; margin: 0;">Your satisfaction is our mission</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STATS ========== -->
+    <section class="stats-section" style="padding: 4rem 0; background: #1e3a28; color: #fff;">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-6 col-lg-3">
+                    <div class="stat-number" style="font-size: 3.2rem; font-weight: 800; color: #ffe28a;">5,000+</div>
+                    <div class="stat-label" style="font-size: 1rem; opacity: 0.75; font-weight: 300;">Happy Customers</div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-number" style="font-size: 3.2rem; font-weight: 800; color: #ffe28a;">200+</div>
+                    <div class="stat-label" style="font-size: 1rem; opacity: 0.75; font-weight: 300;">Local Suppliers</div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-number" style="font-size: 3.2rem; font-weight: 800; color: #ffe28a;">4.9 ★</div>
+                    <div class="stat-label" style="font-size: 1rem; opacity: 0.75; font-weight: 300;">Customer Rating</div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-number" style="font-size: 3.2rem; font-weight: 800; color: #ffe28a;">3,200+</div>
+                    <div class="stat-label" style="font-size: 1rem; opacity: 0.75; font-weight: 300;">Daily Visitors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TEAM (Ethiopian Names) ========== -->
+    <section class="team-section" id="team" style="padding: 5rem 0; background: #fcf9f6;">
+        <div class="container">
+            <h2 class="section-title text-center">Meet Our <span class="text-green">Team</span></h2>
+            <p class="text-center text-muted mb-5" style="max-width: 600px; margin: 0 auto 3rem;">The passionate people behind Flavor — dedicated to bringing you the best shopping experience every day.</p>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="team-card" style="background: white; border-radius: 28px; padding: 2rem 1.5rem 1.8rem; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02); transition: 0.4s; border: 1px solid rgba(0, 0, 0, 0.02); height: 100%;">
+                        <div class="team-avatar" style="width: 120px; height: 120px; border-radius: 60px; margin: 0 auto 1.2rem; background: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop&crop=face&facepad=2') center/cover; border: 4px solid #f0f7ea; transition: 0.3s;"></div>
+                        <div class="team-name" style="font-weight: 700; color: #1e3a28; font-size: 1.15rem;">Henok Tesfaye</div>
+                        <div class="team-role" style="font-size: 0.85rem; color: #6b8c42; font-weight: 500;">Founder & CEO</div>
+                        <div class="team-bio" style="font-size: 0.85rem; color: #6b7a6d; margin-top: 0.5rem;">20+ years in retail. Passionate about local food systems and community building.</div>
+                        <div class="team-social mt-2"><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-linkedin-in"></i></a><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-twitter"></i></a><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-instagram"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card" style="background: white; border-radius: 28px; padding: 2rem 1.5rem 1.8rem; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02); transition: 0.4s; border: 1px solid rgba(0, 0, 0, 0.02); height: 100%;">
+                        <div class="team-avatar" style="width: 120px; height: 120px; border-radius: 60px; margin: 0 auto 1.2rem; background: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop&crop=face&facepad=2') center/cover; border: 4px solid #f0f7ea; transition: 0.3s;"></div>
+                        <div class="team-name" style="font-weight: 700; color: #1e3a28; font-size: 1.15rem;">Selamawit Hailu</div>
+                        <div class="team-role" style="font-size: 0.85rem; color: #6b8c42; font-weight: 500;">Head of Operations</div>
+                        <div class="team-bio" style="font-size: 0.85rem; color: #6b7a6d; margin-top: 0.5rem;">Former supply chain director. Ensures every product arrives fresh and on time.</div>
+                        <div class="team-social mt-2"><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-linkedin-in"></i></a><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-twitter"></i></a><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-instagram"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card" style="background: white; border-radius: 28px; padding: 2rem 1.5rem 1.8rem; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02); transition: 0.4s; border: 1px solid rgba(0, 0, 0, 0.02); height: 100%;">
+                        <div class="team-avatar" style="width: 120px; height: 120px; border-radius: 60px; margin: 0 auto 1.2rem; background: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&crop=face&facepad=2') center/cover; border: 4px solid #f0f7ea; transition: 0.3s;"></div>
+                        <div class="team-name" style="font-weight: 700; color: #1e3a28; font-size: 1.15rem;">Dawit Mekonnen</div>
+                        <div class="team-role" style="font-size: 0.85rem; color: #6b8c42; font-weight: 500;">Head Chef & Café Manager</div>
+                        <div class="team-bio" style="font-size: 0.85rem; color: #6b7a6d; margin-top: 0.5rem;">Classically trained pastry chef. Creates all of our café recipes from scratch.</div>
+                        <div class="team-social mt-2"><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-linkedin-in"></i></a><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-twitter"></i></a><a href="#" style="color: #8a9c8d; margin: 0 6px; transition: 0.2s; font-size: 1.1rem;"><i class="fab fa-instagram"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CATEGORIES (filterable) ========== -->
+    <div class="container mt-5" id="supermarket">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-green"><i class="fas fa-th-large me-2"></i>Shop by Category</h5>
+            <a href="#" class="text-decoration-none text-green fw-semibold" id="resetFilter">View All <i class="fas fa-arrow-right ms-1"></i></a>
+        </div>
+        <div class="category-scroll" id="categoryFilter">
+            <span class="category-pill active" data-filter="all"><i class="fas fa-th-large"></i> All</span>
+            <span class="category-pill" data-filter="produce"><i class="fas fa-apple-alt"></i> Produce</span>
+            <span class="category-pill" data-filter="bakery"><i class="fas fa-bread-slice"></i> Bakery</span>
+            <span class="category-pill" data-filter="dairy"><i class="fas fa-cheese"></i> Dairy</span>
+            <span class="category-pill" data-filter="beverages"><i class="fas fa-wine-bottle"></i> Beverages</span>
+            <span class="category-pill" data-filter="snacks"><i class="fas fa-candy-cane"></i> Snacks</span>
+            <span class="category-pill" data-filter="meat"><i class="fas fa-fish"></i> Meat & Seafood</span>
+            <span class="category-pill" data-filter="deli"><i class="fas fa-utensils"></i> Deli</span>
+            <span class="category-pill" data-filter="household"><i class="fas fa-broom"></i> Household</span>
+        </div>
+    </div>
+
+    <!-- ========== SUPERMARKET PRODUCTS (filterable) ========== -->
+    <div class="container mt-4">
+        <h2 class="section-title">Supermarket <span class="text-green">Favorites</span></h2>
+        <div class="row g-4" id="productGrid">
+            <!-- Products will be injected by JS -->
+        </div>
+    </div>
+
+    <!-- ========== CAFE CORNER (with expandable menu) ========== -->
+    <div class="container mt-5" id="cafe">
+        <div class="cafe-corner">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6 cafe-text">
+                    <h2><i class="fas fa-mug-hot me-2"></i> Café Corner</h2>
+                    <p class="mb-4">Handcrafted drinks, freshly baked pastries, and cozy vibes. Perfect for a quick break or a casual meet-up.</p>
+                    <div class="d-flex flex-column gap-3" id="cafeMenuShort">
+                        <div class="cafe-item">
+                            <span class="cafe-emoji">☕</span>
+                            <span class="cafe-name">Flat White</span>
+                            <span class="cafe-price">ETB 480</span>
+                        </div>
+                        <div class="cafe-item">
+                            <span class="cafe-emoji">🥐</span>
+                            <span class="cafe-name">Butter Croissant</span>
+                            <span class="cafe-price">ETB 320</span>
+                        </div>
+                        <div class="cafe-item">
+                            <span class="cafe-emoji">🍰</span>
+                            <span class="cafe-name">Carrot Cake</span>
+                            <span class="cafe-price">ETB 450</span>
+                        </div>
+                        <div class="cafe-item">
+                            <span class="cafe-emoji">🍵</span>
+                            <span class="cafe-name">Matcha Latte</span>
+                            <span class="cafe-price">ETB 510</span>
+                        </div>
+                    </div>
+                    <!-- Full menu (hidden by default) -->
+                    <div id="fullMenuItems" class="full-menu-items">
+                        <div class="d-flex flex-column gap-3">
+                            <div class="cafe-item">
+                                <span class="cafe-emoji">🥪</span>
+                                <span class="cafe-name">Beef & Avocado Sandwich</span>
+                                <span class="cafe-price">ETB 790</span>
+                            </div>
+                            <div class="cafe-item">
+                                <span class="cafe-emoji">🧁</span>
+                                <span class="cafe-name">Red Velvet Cupcake</span>
+                                <span class="cafe-price">ETB 350</span>
+                            </div>
+                            <div class="cafe-item">
+                                <span class="cafe-emoji">🥗</span>
+                                <span class="cafe-name">Quinoa Salad Bowl</span>
+                                <span class="cafe-price">ETB 820</span>
+                            </div>
+                            <div class="cafe-item">
+                                <span class="cafe-emoji">🍩</span>
+                                <span class="cafe-name">Glazed Donut</span>
+                                <span class="cafe-price">ETB 280</span>
+                            </div>
+                            <div class="cafe-item">
+                                <span class="cafe-emoji">🧋</span>
+                                <span class="cafe-name">Bubble Tea (Taro)</span>
+                                <span class="cafe-price">ETB 550</span>
+                            </div>
+                            <div class="cafe-item">
+                                <span class="cafe-emoji">🍪</span>
+                                <span class="cafe-name">Chocolate Chip Cookie</span>
+                                <span class="cafe-price">ETB 220</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="toggleMenuBtn" class="btn-yellow d-inline-flex mt-4" style="padding: 12px 32px; font-size: 0.95rem; background: #6b8c42; box-shadow: 0 8px 30px rgba(107, 140, 66, 0.3);">
+                        <i class="fas fa-utensils me-2"></i> <span id="menuToggleText">Full Cafe Menu</span>
+                    </button>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block text-end">
+                    <div style="background: rgba(255,255,255,0.4); backdrop-filter: blur(4px); border-radius: 40px; padding: 20px; border: 1px solid rgba(255,255,255,0.5);">
+                        <i class="fas fa-coffee" style="font-size: 8rem; color: #6b8c42; opacity: 0.8;"></i>
+                        <i class="fas fa-cookie" style="font-size: 4rem; color: #ffe28a; margin-left: -20px;"></i>
+                        <i class="fas fa-bread-slice" style="font-size: 3.5rem; color: #d4a373; margin-left: 10px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TESTIMONIALS (Ethiopian Names) ========== -->
+    <section class="container mt-5">
+        <h2 class="section-title text-center">What Our <span class="text-green">Community Says</span></h2>
+        <div class="row g-4 mt-3">
+            <div class="col-md-4">
+                <div class="testimonial-card" style="background: white; border-radius: 28px; padding: 2rem 2rem 1.8rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0, 0, 0, 0.02); transition: 0.3s; height: 100%;">
+                    <div class="stars" style="color: #ffe28a; font-size: 1.1rem; letter-spacing: 2px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text" style="font-size: 0.95rem; color: #3d4f3f; font-style: italic; margin: 0.8rem 0;">"Flavor is my go-to for fresh produce and the best coffee in town. The team is always so friendly and helpful!"</p>
+                    <div class="testimonial-author" style="font-weight: 600; color: #1e3a28;">— Sara Abebe</div>
+                    <div class="testimonial-role" style="font-size: 0.8rem; color: #8a9c8d;">Loyal Customer</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card" style="background: white; border-radius: 28px; padding: 2rem 2rem 1.8rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0, 0, 0, 0.02); transition: 0.3s; height: 100%;">
+                    <div class="stars" style="color: #ffe28a; font-size: 1.1rem; letter-spacing: 2px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text" style="font-size: 0.95rem; color: #3d4f3f; font-style: italic; margin: 0.8rem 0;">"The café corner is a hidden gem. Their pastries are incredible and the atmosphere makes me want to stay all day."</p>
+                    <div class="testimonial-author" style="font-weight: 600; color: #1e3a28;">— Daniel Kebede</div>
+                    <div class="testimonial-role" style="font-size: 0.8rem; color: #8a9c8d;">Cafe Regular</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card" style="background: white; border-radius: 28px; padding: 2rem 2rem 1.8rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0, 0, 0, 0.02); transition: 0.3s; height: 100%;">
+                    <div class="stars" style="color: #ffe28a; font-size: 1.1rem; letter-spacing: 2px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text" style="font-size: 0.95rem; color: #3d4f3f; font-style: italic; margin: 0.8rem 0;">"I love that Flavor supports local farmers. You can taste the difference in quality. My family shops here every week."</p>
+                    <div class="testimonial-author" style="font-weight: 600; color: #1e3a28;">— Tigist Wondimu</div>
+                    <div class="testimonial-role" style="font-size: 0.8rem; color: #8a9c8d;">Community Member</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MAP ========== -->
+    <section class="map-section" id="contact" style="padding: 4rem 0; background: #fcf9f6;">
+        <div class="container">
+            <h2 class="section-title text-center">Visit <span class="text-green">Us</span></h2>
+            <p class="text-center text-muted mb-4">Georgis road, in front of Melat Cafe</p>
+            <div class="map-wrapper" style="border-radius: 32px; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.04); height: 400px;">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.4399499798947!2d37.38290527773059!3d11.591950414280147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1644cf4f6713fd93%3A0xed4ed06287d79df3!2sFlavor%20Super%20Market!5e0!3m2!1sen!2set!4v1785257195620!5m2!1sen!2set" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="row mt-4 g-3 text-center">
+                <div class="col-md-4">
+                    <i class="fas fa-map-pin fa-2x text-green"></i>
+                    <h6 class="mt-2 fw-bold">Address</h6>
+                    <p class="text-muted small">Georgis road<br>in front of Melat Cafe</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-clock fa-2x text-green"></i>
+                    <h6 class="mt-2 fw-bold">Store Hours</h6>
+                    <p class="text-muted small">Mon–Sat: 7:00 AM – 9:00 PM<br>Sun: 8:00 AM – 6:00 PM</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-phone-alt fa-2x text-green"></i>
+                    <h6 class="mt-2 fw-bold">Contact</h6>
+                    <p class="text-muted small">(251) 955-0199<br>hello@flavormarket.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER (Contact Us instead of Subscribe) ========== -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-store me-2" style="color: #6b8c42;"></i> Flavor</h5>
+                    <p class="text-muted small">Your neighborhood market & café since 2024. Quality, freshness, and community at heart.</p>
+                    <div class="footer-contact small">
+                        <p><i class="fas fa-map-pin"></i> Georgis road, in front of Melat Cafe</p>
+                        <p><i class="fas fa-phone-alt"></i> (251) 955-0199</p>
+                        <p><i class="fas fa-envelope"></i> hello@flavormarket.com</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold">Quick Links</h6>
+                    <a href="#about" class="d-block mb-2">About</a>
+                    <a href="#team" class="d-block mb-2">Team</a>
+                    <a href="#" class="d-block mb-2">Delivery</a>
+                    <a href="#contact" class="d-block mb-2">Contact</a>
+                    <a href="#" class="d-block mb-2">Careers</a>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold">Categories</h6>
+                    <a href="#" class="d-block mb-2">Produce</a>
+                    <a href="#" class="d-block mb-2">Bakery</a>
+                    <a href="#" class="d-block mb-2">Dairy</a>
+                    <a href="#" class="d-block mb-2">Beverages</a>
+                    <a href="#" class="d-block mb-2">Meat & Seafood</a>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Contact Us</h6>
+                    <p class="small text-muted">Send us a message and we'll get back to you.</p>
+                    <form onsubmit="sendEmail(event)">
+                        <div class="mb-2">
+                            <input type="text" id="contactName" class="form-control form-control-sm" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-2">
+                            <input type="email" id="contactEmail" class="form-control form-control-sm" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-2">
+                            <textarea id="contactMessage" class="form-control form-control-sm" placeholder="Your Message" rows="2" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-send btn-sm"><i class="fas fa-paper-plane me-2"></i>Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(107, 140, 66, 0.15);">
+            <p class="text-center small text-muted mb-0">&copy; 2026 Flavor Supermarket & Cafe. Made with <i class="fas fa-heart" style="color: #f28b82;"></i> for our community.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        (function() {
+            // ---- PRODUCT DATA (prices in ETB) ----
+            const products = [
+                { name: 'Organic Avocado', desc: 'Creamy, rich, 2-pack', price: 'ETB 499', emoji: '🥑', category: 'produce', tag: 'Fresh' },
+                { name: 'Almond Milk', desc: 'Unsweetened, 1L', price: 'ETB 349', emoji: '🥛', category: 'beverages', tag: 'Bestseller' },
+                { name: 'Sourdough Loaf', desc: 'Hand-crafted, 500g', price: 'ETB 520', emoji: '🍞', category: 'bakery', tag: 'Artisan' },
+                { name: 'Free-range Eggs', desc: '6-pack, organic', price: 'ETB 380', emoji: '🥚', category: 'dairy', tag: 'Farm' },
+                { name: 'Ripe Bananas', desc: 'Bunch of 5-6', price: 'ETB 230', emoji: '🍌', category: 'produce', tag: 'Organic' },
+                { name: 'Spinach Bag', desc: 'Organic, 200g', price: 'ETB 290', emoji: '🥬', category: 'produce', tag: 'Superfood' },
+                { name: 'Aged Cheddar', desc: 'Artisan, 200g', price: 'ETB 650', emoji: '🧀', category: 'dairy', tag: 'Local' },
+                { name: 'Fresh Blueberries', desc: '1 pint', price: 'ETB 420', emoji: '🫐', category: 'produce', tag: 'New' },
+                { name: 'Smoked Salmon', desc: 'Wild-caught, 150g', price: 'ETB 890', emoji: '🐟', category: 'meat', tag: 'Premium' },
+                { name: 'Chicken Breast', desc: 'Boneless, 500g', price: 'ETB 630', emoji: '🍗', category: 'meat', tag: 'Lean' },
+                { name: 'Whole Wheat Pasta', desc: '500g, organic', price: 'ETB 320', emoji: '🍝', category: 'deli', tag: 'Pantry' },
+                { name: 'Hummus Trio', desc: 'Classic, roasted red pepper, garlic', price: 'ETB 450', emoji: '🧆', category: 'deli', tag: 'Vegan' },
+                { name: 'Sparkling Water', desc: '12-pack, lime', price: 'ETB 500', emoji: '🫧', category: 'beverages', tag: 'Refreshing' },
+                { name: 'Dark Chocolate', desc: '72% cocoa, 100g', price: 'ETB 380', emoji: '🍫', category: 'snacks', tag: 'Indulge' },
+                { name: 'Kettle Chips', desc: 'Sea salt, 150g', price: 'ETB 290', emoji: '🥨', category: 'snacks', tag: 'Crunchy' },
+                { name: 'Laundry Detergent', desc: 'Eco-friendly, 1L', price: 'ETB 720', emoji: '🧴', category: 'household', tag: 'Essential' }
+            ];
+
+            const productGrid = document.getElementById('productGrid');
+            const categoryPills = document.querySelectorAll('.category-pill');
+            const resetFilterLink = document.getElementById('resetFilter');
+
+            function renderProducts(filter = 'all') {
+                productGrid.innerHTML = '';
+                const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+                if (filtered.length === 0) {
+                    productGrid.innerHTML = `<div class="col-12 text-center py-5"><p class="text-muted">No products found in this category. Check back soon!</p></div>`;
+                    return;
+                }
+                filtered.forEach(p => {
+                    const col = document.createElement('div');
+                    col.className = 'col-6 col-md-4 col-lg-3';
+                    col.innerHTML = `
+                        <div class="product-card">
+                            <span class="badge-tag ${p.tag === 'Fresh' || p.tag === 'Artisan' || p.tag === 'Organic' ? 'green' : ''}">${p.tag}</span>
+                            <div class="product-emoji">${p.emoji}</div>
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-desc">${p.desc}</div>
+                            <div class="product-price">${p.price} <small>/ unit</small></div>
+                            <div class="category-tag">${p.category}</div>
+                        </div>
+                    `;
+                    productGrid.appendChild(col);
+                });
+            }
+
+            // Filter by category pills
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const filter = this.dataset.filter;
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    renderProducts(filter);
+                });
+            });
+
+            // Reset filter (View All)
+            resetFilterLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                categoryPills.forEach(p => p.classList.remove('active'));
+                document.querySelector('.category-pill[data-filter="all"]').classList.add('active');
+                renderProducts('all');
+            });
+
+            // Initial render
+            renderProducts('all');
+
+            // ---- CAFE MENU TOGGLE ----
+            const toggleBtn = document.getElementById('toggleMenuBtn');
+            const fullMenu = document.getElementById('fullMenuItems');
+            const menuText = document.getElementById('menuToggleText');
+
+            toggleBtn.addEventListener('click', function() {
+                fullMenu.classList.toggle('show');
+                if (fullMenu.classList.contains('show')) {
+                    menuText.textContent = 'Show Less';
+                } else {
+                    menuText.textContent = 'Full Cafe Menu';
+                }
+            });
+
+            // ---- CONTACT FORM (mailto:) ----
+            window.sendEmail = function(e) {
+                e.preventDefault();
+                var name = document.getElementById('contactName').value;
+                var email = document.getElementById('contactEmail').value;
+                var message = document.getElementById('contactMessage').value;
+                var subject = "Message from " + name;
+                var body = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+                window.location.href = "mailto:hello@flavormarket.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+            };
+
+        })();
+    </script>
+
+</body>
+</html>
